@@ -18,26 +18,26 @@ import jakarta.validation.constraints.Size;
 @Table(name = "tb_categorias")
 public class Categoria {
 
-	
+
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @NotBlank(message = "O nome da categoria é obrigatório")
-    @Size(min = 3, max = 50)
-    private String nome;
+	@NotBlank(message = "O nome da categoria é obrigatório")
+	@Size(min = 3, max = 50)
+	private String nome;
 
-    @NotBlank(message = "A descrição é obrigatória")
-    @Size(min = 5, max = 200)
-    private String descricao;
+	@NotBlank(message = "A descrição é obrigatória")
+	@Size(min = 5, max = 200)
+	private String descricao;
 
-    private Boolean natural;
+	private Boolean saudavel;
 
-    private String imagemUrl;
+	private String imagemUrl;
 
-    @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL)
-    @JsonIgnoreProperties("categoria")
-    private List<Produto> produtos;
+	@OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL)
+	@JsonIgnoreProperties("categoria")
+	private List<Produto> produtos;
 
 	public Long getId() {
 		return id;
@@ -63,12 +63,12 @@ public class Categoria {
 		this.descricao = descricao;
 	}
 
-	public Boolean getNatural() {
-		return natural;
+	public Boolean getsaudavel() {
+		return saudavel;
 	}
 
-	public void setNatural(Boolean natural) {
-		this.natural = natural;
+	public void setsaudavel(Boolean saudavel) {
+		this.saudavel = saudavel;
 	}
 
 	public String getImagemUrl() {
@@ -86,6 +86,6 @@ public class Categoria {
 	public void setProdutos(List<Produto> produtos) {
 		this.produtos = produtos;
 	}
-    
-    
+
+
 }
