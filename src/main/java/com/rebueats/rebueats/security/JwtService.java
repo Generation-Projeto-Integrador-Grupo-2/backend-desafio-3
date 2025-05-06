@@ -9,6 +9,8 @@ import java.util.function.Function;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import com.rebueats.rebueats.model.Usuario;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -60,9 +62,9 @@ public class JwtService {
                 .signWith(getSignKey(), SignatureAlgorithm.HS256).compact();
     }
 
-    public String generateToken(String userName) {
+    public String generateToken(Usuario usuario) {
         Map<String, Object> claims = new HashMap<>();
-        return createToken(claims, userName);
+        return "Bearer " + createToken(claims, usuario.getEmail());
     }
 
 }
