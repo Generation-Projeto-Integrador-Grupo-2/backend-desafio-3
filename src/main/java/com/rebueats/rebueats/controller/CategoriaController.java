@@ -27,8 +27,7 @@ public class CategoriaController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Categoria> getById(@PathVariable Long id) {
-        return categoriaService.buscarPorId(id)
-                .map(resposta -> ResponseEntity.ok(resposta))
+        return categoriaService.buscarPorId(id).map(resposta -> ResponseEntity.ok(resposta))
                 .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
@@ -56,4 +55,3 @@ public class CategoriaController {
         categoriaService.deletarCategoria(id);
     }
 }
-S

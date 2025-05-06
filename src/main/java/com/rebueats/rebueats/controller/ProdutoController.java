@@ -1,7 +1,6 @@
 package com.rebueats.rebueats.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,11 +15,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
 
 import com.rebueats.rebueats.model.Produto;
 import com.rebueats.rebueats.repository.CategoriaRepository;
-import com.rebueats.rebueats.repository.ProdutoRepository;
 import com.rebueats.rebueats.service.ProdutoService;
 
 import jakarta.validation.Valid;
@@ -29,52 +26,52 @@ import jakarta.validation.Valid;
 @RequestMapping("/produtos")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class ProdutoController {
-	
+
 	@Autowired
 	private ProdutoService produtoService;
 
-	
-	@Autowired CategoriaRepository categoriaRepository;
-	
+
+	@Autowired
+	CategoriaRepository categoriaRepository;
+
 	@GetMapping
 	public ResponseEntity<List<Produto>> getAll() {
-	
-		return ResponseEntity.ok (produtoService.listarProdutos());
+
+		return ResponseEntity.ok(produtoService.listarProdutos());
 	}
-	
-	@GetMapping("/{id}") 
+
+	@GetMapping("/{id}")
 	public ResponseEntity<Produto> getById(@PathVariable Long id) {
-		
-		return produtoService.buscarPorId(id)				
-				.map(resposta -> ResponseEntity.ok(resposta))
+
+		return produtoService.buscarPorId(id).map(resposta -> ResponseEntity.ok(resposta))
 				.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
 	}
-	
+
 	@GetMapping("/nome/{nome}")
 	public ResponseEntity<List<Produto>> getByTitulo(@PathVariable String nome) {
-		return ResponseEntity.ok (produtoService.buscarPorNome(nome));
+		return ResponseEntity.ok(produtoService.buscarPorNome(nome));
 	}
-	
+
 	@PostMapping
 	public ResponseEntity<Produto> post(@Valid @RequestBody Produto produto) {
 		return ResponseEntity.status(HttpStatus.CREATED)
 				.body(produtoService.cadastrarProduto(produto));
-	
+
 	}
-	
+
 	@PutMapping
 	public ResponseEntity<Produto> put(@Valid @RequestBody Produto produto) {
-		return produtoService.atualizarProduto(produto)			
-						.map(resposta -> ResponseEntity.status(HttpStatus.OK).body(resposta))
-						.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
-		
+		return produtoService.atualizarProduto(produto)
+				.map(resposta -> ResponseEntity.status(HttpStatus.OK).body(resposta))
+				.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+
 	}
-	
+
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable Long id) {
-		
-		
+
+
 		produtoService.deletarProduto(id);
 	}
 
