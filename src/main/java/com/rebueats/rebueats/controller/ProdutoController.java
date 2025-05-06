@@ -35,9 +35,6 @@ public class ProdutoController {
 	private ProdutoService produtoService;
 
 	
-	@Autowired
-	private ProdutoRepository produtoRepository;
-	
 	@Autowired CategoriaRepository categoriaRepository;
 	
 	@GetMapping
@@ -59,14 +56,14 @@ public class ProdutoController {
 		return ResponseEntity.ok (produtoService.buscarPorNome(nome));
 	}
 	
-	@PostMapping("/cadastrar")
+	@PostMapping
 	public ResponseEntity<Produto> post(@Valid @RequestBody Produto produto) {
 		return ResponseEntity.status(HttpStatus.CREATED)
 				.body(produtoService.cadastrarProduto(produto));
 	
 	}
 	
-	@PutMapping("/atualizar")
+	@PutMapping
 	public ResponseEntity<Produto> put(@Valid @RequestBody Produto produto) {
 		return produtoService.atualizarProduto(produto)			
 						.map(resposta -> ResponseEntity.status(HttpStatus.OK).body(resposta))
