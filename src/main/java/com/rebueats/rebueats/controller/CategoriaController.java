@@ -1,9 +1,9 @@
 package com.rebueats.rebueats.controller;
 
 import com.rebueats.rebueats.model.Categoria;
-import com.rebueats.rebueats.repository.CategoriaRepository;
-import jakarta.validation.Valid;
+import com.rebueats.rebueats.service.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,50 +12,42 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/categorias")
-@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class CategoriaController {
 
     @Autowired
-    private CategoriaRepository categoriaRepository;
+    private CategoriaService categoriaService;
 
     @GetMapping
-    public ResponseEntity<List<Categoria>> getAll() {
-        return ResponseEntity.ok(categoriaRepository.findAll());
+    public List<Categoria> listarTodas() {
+        return categoriaService.listarTodas();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Categoria> getById(@PathVariable Long id) {
-        return categoriaRepository.findById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
-    }
-
-    @GetMapping("/nome/{nome}")
-    public ResponseEntity<List<Categoria>> getByNome(@PathVariable String nome) {
-        return ResponseEntity.ok(categoriaRepository.findAllByNomeContainingIgnoreCase(nome));
+    public ResponseEntity<Categoria> buscarPorId(@PathVariable Long id) {
+        Optional<Categoria> categoria = categoriaService.buscarPorId(id);
+        return categoria.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public ResponseEntity<Categoria> post(@Valid @RequestBody Categoria categoria) {
-        return ResponseEntity.status(201).body(categoriaRepository.save(categoria));
-    }
-
-    @PutMapping
-    public ResponseEntity<Categoria> put(@Valid @RequestBody Categoria categoria) {
-        if (categoria.getId() == null || !categoriaRepository.existsById(categoria.getId())) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(categoriaRepository.save(categoria));
+    public ResponseEntity<Categoria> criarCategoria(@RequestBody Categoria categoria) {
+        Categoria categoriaCriada = categoriaService.salvar(categoria);
+        return ResponseEntity.status(HttpStatus.CREATED).body(categoriaCriada);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
-        Optional<Categoria> categoria = categoriaRepository.findById(id);
-        if (categoria.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-        categoriaRepository.deleteById(id);
+    public ResponseEntity<Void> deletarCategoria(@PathVariable Long id) {
+        categoriaService.deletar(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Categoria> atualizarCategoria(@PathVariable Long id, @RequestBody Categoria categoria) {
+        Optional<Categoria> categoriaExistente = categoriaService.buscarPorId(id);
+        if (categoriaExistente.isPresent()) {
+            categoria.setId(id);
+            Categoria categoriaAtualizada = categoriaService.salvar(categoria);
+            return ResponseEntity.ok(categoriaAtualizada);
+        }
+        return ResponseEntity.notFound().build();
+    }
 }
-S
