@@ -11,6 +11,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 
 import com.rebueats.rebueats.model.Produto;
+import com.rebueats.rebueats.repository.CategoriaRepository;
 import com.rebueats.rebueats.repository.ProdutoRepository;
 import com.rebueats.rebueats.repository.UsuarioRepository;
 
@@ -23,10 +24,17 @@ public class ProdutoService {
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 
+	@Autowired
+	private CategoriaRepository categoriaRepository;
+
 	public Produto cadastrarProduto(Produto produto) {
 		String email = SecurityContextHolder.getContext().getAuthentication().getName();
-
+		var categoria = categoriaRepository.findById(produto.getCategoria().getId());
 		var usuario = usuarioRepository.findByEmail(email).get();
+
+		if (categoria.isPresent()) {
+			produto.setCategoria(categoria.get());
+		}
 
 		produto.setUsuario(usuario);
 
