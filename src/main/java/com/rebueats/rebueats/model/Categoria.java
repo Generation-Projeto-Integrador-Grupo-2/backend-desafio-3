@@ -63,11 +63,11 @@ public class Categoria {
 		this.descricao = descricao;
 	}
 
-	public Boolean getsaudavel() {
+	public Boolean getSaudavel() {
 		return saudavel;
 	}
 
-	public void setsaudavel(Boolean saudavel) {
+	public void setSaudavel(Boolean saudavel) {
 		this.saudavel = saudavel;
 	}
 

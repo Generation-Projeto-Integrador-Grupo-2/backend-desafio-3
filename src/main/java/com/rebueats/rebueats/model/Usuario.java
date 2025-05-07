@@ -37,7 +37,7 @@ public class Usuario {
     private String senha;
 
     @NotBlank(message = "O endereço deve ser obrigatório!")
-    @Size(min = 10, max = 100, message = "O tamanho mínimo é de 2 e máximo de 100 caracteres.")
+    @Size(min = 2, max = 100, message = "O tamanho mínimo é de 2 e máximo de 100 caracteres.")
     private String endereco;
 
     @NotBlank(message = "O número deve ser obrigatório!")
