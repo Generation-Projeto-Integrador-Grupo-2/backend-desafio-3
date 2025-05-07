@@ -37,6 +37,10 @@ public class CategoriaService {
         return categoriaRepository.findById(categoria.getId()).map(categoriaExistente -> {
             categoriaExistente.setNome(categoria.getNome());
             categoriaExistente.setDescricao(categoria.getDescricao());
+
+            if (categoria.getSaudavel() != null)
+                categoriaExistente.setSaudavel(categoria.getSaudavel());
+
             return categoriaRepository.save(categoriaExistente);
         });
     }
@@ -49,5 +53,9 @@ public class CategoriaService {
         }
 
         categoriaRepository.deleteById(id);
+    }
+
+    public List<Categoria> listarSaudaveis() {
+        return categoriaRepository.findAllBySaudavelIsTrue();
     }
 }

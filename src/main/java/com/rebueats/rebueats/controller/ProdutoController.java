@@ -17,10 +17,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rebueats.rebueats.model.Produto;
-import com.rebueats.rebueats.repository.CategoriaRepository;
 import com.rebueats.rebueats.service.ProdutoService;
 
 import jakarta.validation.Valid;
+
 
 @RestController
 @RequestMapping("/produtos")
@@ -29,10 +29,6 @@ public class ProdutoController {
 
 	@Autowired
 	private ProdutoService produtoService;
-
-
-	@Autowired
-	CategoriaRepository categoriaRepository;
 
 	@GetMapping
 	public ResponseEntity<List<Produto>> getAll() {
@@ -74,5 +70,4 @@ public class ProdutoController {
 
 		produtoService.deletarProduto(id);
 	}
-
 }

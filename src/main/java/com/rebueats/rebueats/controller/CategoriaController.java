@@ -11,6 +11,9 @@ import com.rebueats.rebueats.model.Categoria;
 import com.rebueats.rebueats.service.CategoriaService;
 
 import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @RestController
 @RequestMapping("/categorias")
@@ -54,4 +57,10 @@ public class CategoriaController {
     public void delete(@PathVariable Long id) {
         categoriaService.deletarCategoria(id);
     }
+
+    @GetMapping("saudavel")
+    public ResponseEntity<List<Categoria>> getSaudaveis() {
+        return ResponseEntity.ok(categoriaService.listarSaudaveis());
+    }
+
 }
