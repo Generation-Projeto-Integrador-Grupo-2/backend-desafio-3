@@ -35,7 +35,6 @@ Temos um suporte especializado 24 horas para atender nossos clientes e parceiros
   - Spring Boot Validation
   - Spring Security
   -  JWT (JSON Web Token)
-  - Lombok
 
 ### Banco de Dados
 - 🐬 **MySQL**
