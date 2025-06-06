@@ -23,7 +23,7 @@ public class Produto {
 	private Long id;
 
 	@NotBlank(message = "O nome é obrigatório.")
-	@Size(min = 5, max = 100)
+	@Size(min = 2, max = 100)
 	private String nome;
 
 	@NotBlank(message = "Descrição é obrigatório.")

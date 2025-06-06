@@ -28,7 +28,7 @@ public class Usuario {
     @Size(min = 2, max = 100, message = "O tamanho mínimo é de 2 e máximo de 100 caracteres.")
     private String name;
 
-    @Schema(example = "email@eamil.com.br")
+    @Schema(example = "email@email.com.br")
     @NotBlank(message = "O email é obrigatório!")
     @Email
     private String email;
@@ -41,7 +41,7 @@ public class Usuario {
     private String endereco;
 
     @NotBlank(message = "O número deve ser obrigatório!")
-    @Size(min = 5, max = 15, message = "O tamanho mínimo é de 2 e máximo de 100 caracteres.")
+    @Size(min = 5, max = 15, message = "O tamanho mínimo é de 2 e máximo de 15 caracteres.")
     private String numero;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "usuario", cascade = CascadeType.REMOVE)
