@@ -1,7 +1,7 @@
 INSERT INTO tb_usuarios (name, email, senha, endereco, numero) VALUES
 ('Lanchonete Fit&Sabor', 'contato@fitsabor.com', '12345678', 'Rua das Laranjeiras', '123456789');
 
-INSERT INTO tb_categorias (id, nome, descricao, saudavel, imagem_url) VALUES
+INSERT INTO tb_categorias (nome, descricao, saudavel, imagem_url) VALUES
 ('Doces', 'Produtos açucarados e saborosos', false, 'https://img.exemplo.com/categoria-doces.jpg'),
 ('Lanches', 'Comidas rápidas e práticas', false, 'https://img.exemplo.com/categoria-lanches.jpg'),
 ('Saudáveis', 'Produtos leves e nutritivos', true, 'https://img.exemplo.com/categoria-saudaveis.jpg'),
