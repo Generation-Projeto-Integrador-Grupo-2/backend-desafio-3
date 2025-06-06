@@ -1,3 +1,7 @@
+DELETE FROM tb_produtos;
+DELETE FROM tb_categorias;
+DELETE FROM tb_usuarios;
+
 INSERT INTO tb_usuarios (name, email, senha, endereco, numero) VALUES
 ('Lanchonete Fit&Sabor', 'contato@fitsabor.com', '12345678', 'Rua das Laranjeiras', '123456789');
 
