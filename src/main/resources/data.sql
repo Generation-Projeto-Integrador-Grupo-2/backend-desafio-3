@@ -5,29 +5,29 @@ WHERE NOT EXISTS (
 );
 
 
-INSERT INTO tb_categorias (nome, descricao, saudavel, imagem_url)
-SELECT 'Doces', 'Produtos açucarados e saborosos', false, 'https://img.exemplo.com/categoria-doces.jpg'
-WHERE NOT EXISTS (SELECT 1 FROM tb_categorias WHERE nome = 'Doces');
+INSERT INTO tb_categorias (id, nome, descricao, saudavel, imagem_url)
+SELECT 1, 'Doces', 'Produtos açucarados e saborosos', false, 'https://img.exemplo.com/categoria-doces.jpg'
+WHERE NOT EXISTS (SELECT 1 FROM tb_categorias WHERE id = 1);
 
-INSERT INTO tb_categorias (nome, descricao, saudavel, imagem_url)
-SELECT 'Lanches', 'Comidas rápidas e práticas', false, 'https://img.exemplo.com/categoria-lanches.jpg'
-WHERE NOT EXISTS (SELECT 1 FROM tb_categorias WHERE nome = 'Lanches');
+INSERT INTO tb_categorias (id, nome, descricao, saudavel, imagem_url)
+SELECT 2, 'Lanches', 'Comidas rápidas e práticas', false, 'https://img.exemplo.com/categoria-lanches.jpg'
+WHERE NOT EXISTS (SELECT 1 FROM tb_categorias WHERE id = 2);
 
-INSERT INTO tb_categorias (nome, descricao, saudavel, imagem_url)
-SELECT 'Saudáveis', 'Produtos leves e nutritivos', true, 'https://img.exemplo.com/categoria-saudaveis.jpg'
-WHERE NOT EXISTS (SELECT 1 FROM tb_categorias WHERE nome = 'Saudáveis');
+INSERT INTO tb_categorias (id, nome, descricao, saudavel, imagem_url)
+SELECT 3, 'Saudáveis', 'Produtos leves e nutritivos', true, 'https://img.exemplo.com/categoria-saudaveis.jpg'
+WHERE NOT EXISTS (SELECT 1 FROM tb_categorias WHERE id = 3);
 
-INSERT INTO tb_categorias (nome, descricao, saudavel, imagem_url)
-SELECT 'Bebidas', 'Bebidas geladas, energéticas ou naturais', false, 'https://img.exemplo.com/categoria-bebidas.jpg'
-WHERE NOT EXISTS (SELECT 1 FROM tb_categorias WHERE nome = 'Bebidas');
+INSERT INTO tb_categorias (id, nome, descricao, saudavel, imagem_url)
+SELECT 4, 'Bebidas', 'Bebidas geladas, energéticas ou naturais', false, 'https://img.exemplo.com/categoria-bebidas.jpg'
+WHERE NOT EXISTS (SELECT 1 FROM tb_categorias WHERE id = 4);
 
-INSERT INTO tb_categorias (nome, descricao, saudavel, imagem_url)
-SELECT 'Veganos', 'Sem ingredientes de origem animal', true, 'https://img.exemplo.com/categoria-veganos.jpg'
-WHERE NOT EXISTS (SELECT 1 FROM tb_categorias WHERE nome = 'Veganos');
+INSERT INTO tb_categorias (id, nome, descricao, saudavel, imagem_url)
+SELECT 5, 'Veganos', 'Sem ingredientes de origem animal', true, 'https://img.exemplo.com/categoria-veganos.jpg'
+WHERE NOT EXISTS (SELECT 1 FROM tb_categorias WHERE id = 5);
 
-INSERT INTO tb_categorias (nome, descricao, saudavel, imagem_url)
-SELECT 'Fitness', 'Para quem cuida do corpo e da saúde', true, 'https://img.exemplo.com/categoria-fitness.jpg'
-WHERE NOT EXISTS (SELECT 1 FROM tb_categorias WHERE nome = 'Fitness');
+INSERT INTO tb_categorias (id, nome, descricao, saudavel, imagem_url)
+SELECT 6, 'Fitness', 'Para quem cuida do corpo e da saúde', true, 'https://img.exemplo.com/categoria-fitness.jpg'
+WHERE NOT EXISTS (SELECT 1 FROM tb_categorias WHERE id = 6);
 
 
 INSERT INTO tb_produtos (nome, descricao, preco, foto, categoria_id, usuario_id)
