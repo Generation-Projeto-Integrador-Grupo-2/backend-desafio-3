@@ -38,4 +38,5 @@ BEGIN
         ('Torta de Frango', 'Torta salgada com recheio cremoso de frango e milho', 10.00, 'https://img.exemplo.com/produtos/torta.jpg', 2, 1),
         ('Salada Caesar', 'Alface, frango grelhado, parmesão e molho caesar', 8.90, 'https://img.exemplo.com/produtos/caesar.jpg', 6, 1);
     END IF;
-END $$;
+END;
+$$ LANGUAGE plpgsql;
