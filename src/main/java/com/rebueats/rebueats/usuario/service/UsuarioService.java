@@ -1,4 +1,4 @@
-package com.rebueats.rebueats.service;
+package com.rebueats.rebueats.usuario.service;
 
 import java.util.List;
 import java.util.Optional;
@@ -8,33 +8,33 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-
-import com.rebueats.rebueats.model.Usuario;
-import com.rebueats.rebueats.model.UsuarioLogin;
-import com.rebueats.rebueats.repository.UsuarioRepository;
 import com.rebueats.rebueats.security.JwtService;
+import com.rebueats.rebueats.usuario.model.Usuario;
+import com.rebueats.rebueats.usuario.model.UsuarioLogin;
+import com.rebueats.rebueats.usuario.repository.UsuarioRepository;
 
 @Service
 public class UsuarioService {
 
-	@Autowired
-	private UsuarioRepository usuarioRepository;
-	
-	@Autowired
-	private PasswordEncoder passwordEncoder;
-	
-	@Autowired
-	private JwtService jwtService;
-	
-	public Optional<Usuario> cadastrarUsuario(Usuario usuario) {
-		if (usuarioRepository.findByEmail(usuario.getEmail()).isPresent()) {
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Esse Email já foi utilizado");
-		}
-		
-		usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
-		return Optional.of(usuarioRepository.save(usuario));
-	}
-	
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private JwtService jwtService;
+
+    public Optional<Usuario> cadastrarUsuario(Usuario usuario) {
+        if (usuarioRepository.findByEmail(usuario.getEmail()).isPresent()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                    "Esse Email já foi utilizado");
+        }
+
+        usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
+        return Optional.of(usuarioRepository.save(usuario));
+    }
+
     public Optional<UsuarioLogin> autenticarUsuario(UsuarioLogin usuarioLogin) {
         Optional<Usuario> usuario = usuarioRepository.findByEmail(usuarioLogin.getEmail());
 
@@ -53,15 +53,15 @@ public class UsuarioService {
 
         throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Usuário ou senha inválidos!");
     }
-    
-    public List<Usuario> listarTodos(){
-    	return usuarioRepository.findAll();
+
+    public List<Usuario> listarTodos() {
+        return usuarioRepository.findAll();
     }
-    
+
     public Optional<Usuario> listarPorId(Long id) {
-    	return usuarioRepository.findById(id);
+        return usuarioRepository.findById(id);
     }
-    
+
 
     public Optional<Usuario> atualizarUsuario(Usuario usuario) {
         Optional<Usuario> usuarioExistente = usuarioRepository.findById(usuario.getId());
@@ -71,8 +71,10 @@ public class UsuarioService {
         }
 
         Optional<Usuario> usuarioComMesmoEmail = usuarioRepository.findByEmail(usuario.getEmail());
-        if (usuarioComMesmoEmail.isPresent() && !usuarioComMesmoEmail.get().getId().equals(usuario.getId())) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Este Email já está em uso por outro usuário");
+        if (usuarioComMesmoEmail.isPresent()
+                && !usuarioComMesmoEmail.get().getId().equals(usuario.getId())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                    "Este Email já está em uso por outro usuário");
         }
 
         Usuario usuarioAtualizado = usuarioExistente.get();
@@ -86,14 +88,14 @@ public class UsuarioService {
         return Optional.of(usuarioRepository.save(usuarioAtualizado));
     }
 
-    
+
     public void deletar(Long id) {
-    	Optional<Usuario> usuario = usuarioRepository.findById(id);
-    	
-    	if (usuario.isEmpty()) {
-    		throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Esse Usuario não existe");			
-		}
-    	
-    	usuarioRepository.deleteById(id);
+        Optional<Usuario> usuario = usuarioRepository.findById(id);
+
+        if (usuario.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Esse Usuario não existe");
+        }
+
+        usuarioRepository.deleteById(id);
     }
 }

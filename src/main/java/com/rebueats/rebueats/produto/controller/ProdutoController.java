@@ -1,4 +1,4 @@
-package com.rebueats.rebueats.controller;
+package com.rebueats.rebueats.produto.controller;
 
 import java.util.List;
 
@@ -15,11 +15,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.rebueats.rebueats.model.Produto;
-import com.rebueats.rebueats.repository.CategoriaRepository;
-import com.rebueats.rebueats.service.ProdutoService;
-
+import com.rebueats.rebueats.categoria.repository.CategoriaRepository;
+import com.rebueats.rebueats.produto.model.Produto;
+import com.rebueats.rebueats.produto.service.ProdutoService;
 import jakarta.validation.Valid;
 
 @RestController

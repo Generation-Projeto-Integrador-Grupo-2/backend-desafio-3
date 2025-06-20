@@ -1,8 +1,8 @@
-package com.rebueats.rebueats.model;
+package com.rebueats.rebueats.usuario.model;
 
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
+import com.rebueats.rebueats.produto.model.Produto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;

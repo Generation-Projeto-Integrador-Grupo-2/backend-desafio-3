@@ -1,16 +1,17 @@
 package com.rebueats.rebueats.security;
 
+import java.io.Serial;
 import java.util.Collection;
 import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import com.rebueats.rebueats.model.Usuario;
-
+import com.rebueats.rebueats.usuario.model.Usuario;
 
 
 public class UserDetailsImpl implements UserDetails {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     private String userName;

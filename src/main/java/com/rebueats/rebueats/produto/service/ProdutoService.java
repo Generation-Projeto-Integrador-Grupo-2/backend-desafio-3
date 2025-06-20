@@ -1,4 +1,4 @@
-package com.rebueats.rebueats.service;
+package com.rebueats.rebueats.produto.service;
 
 import java.util.List;
 import java.util.Optional;
@@ -8,12 +8,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-
-
-import com.rebueats.rebueats.model.Produto;
-import com.rebueats.rebueats.repository.CategoriaRepository;
-import com.rebueats.rebueats.repository.ProdutoRepository;
-import com.rebueats.rebueats.repository.UsuarioRepository;
+import com.rebueats.rebueats.categoria.repository.CategoriaRepository;
+import com.rebueats.rebueats.produto.model.Produto;
+import com.rebueats.rebueats.produto.repository.ProdutoRepository;
+import com.rebueats.rebueats.usuario.repository.UsuarioRepository;
 
 @Service
 public class ProdutoService {

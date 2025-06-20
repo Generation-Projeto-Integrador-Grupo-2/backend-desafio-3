@@ -1,11 +1,9 @@
-package com.rebueats.rebueats.controller;
+package com.rebueats.rebueats.usuario.controller;
 
 import org.springframework.web.bind.annotation.RestController;
-
-import com.rebueats.rebueats.model.Usuario;
-import com.rebueats.rebueats.model.UsuarioLogin;
-import com.rebueats.rebueats.service.UsuarioService;
-
+import com.rebueats.rebueats.usuario.model.Usuario;
+import com.rebueats.rebueats.usuario.model.UsuarioLogin;
+import com.rebueats.rebueats.usuario.service.UsuarioService;
 import jakarta.validation.Valid;
 
 import java.util.List;
@@ -29,44 +27,43 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @RequestMapping("/usuarios")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class UsuarioController {
-	
-	@Autowired
-	private UsuarioService usuarioService;
-	
-	@GetMapping("/all")
-	public ResponseEntity<List<Usuario>> getAll(){
-		return ResponseEntity.ok(usuarioService.listarTodos());
-	}
-	
+
+    @Autowired
+    private UsuarioService usuarioService;
+
+    @GetMapping("/all")
+    public ResponseEntity<List<Usuario>> getAll() {
+        return ResponseEntity.ok(usuarioService.listarTodos());
+    }
+
     @GetMapping("/id/{id}")
     public ResponseEntity<Usuario> getById(@PathVariable Long id) {
-        return usuarioService.listarPorId(id)
-        		.map(resposta -> ResponseEntity.ok(resposta))
-    			.orElse(ResponseEntity.notFound().build());
+        return usuarioService.listarPorId(id).map(resposta -> ResponseEntity.ok(resposta))
+                .orElse(ResponseEntity.notFound().build());
     }
-    
+
     @PostMapping("/cadastrar")
     public ResponseEntity<Usuario> postUsuario(@RequestBody @Valid Usuario usuario) {
         return usuarioService.cadastrarUsuario(usuario)
                 .map(resposta -> ResponseEntity.status(HttpStatus.CREATED).body(resposta))
                 .orElse(ResponseEntity.status(HttpStatus.BAD_REQUEST).build());
     }
-    
-	@PostMapping("/logar")
-	public ResponseEntity<UsuarioLogin> autenticarUsuario(@RequestBody UsuarioLogin usuarioLogin){
-		
-		return usuarioService.autenticarUsuario(usuarioLogin)
-				.map(resposta -> ResponseEntity.status(HttpStatus.OK).body(resposta))
-				.orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
-	}
-	
+
+    @PostMapping("/logar")
+    public ResponseEntity<UsuarioLogin> autenticarUsuario(@RequestBody UsuarioLogin usuarioLogin) {
+
+        return usuarioService.autenticarUsuario(usuarioLogin)
+                .map(resposta -> ResponseEntity.status(HttpStatus.OK).body(resposta))
+                .orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
+    }
+
     @PutMapping("/atualizar")
     public ResponseEntity<Usuario> putUsuario(@Valid @RequestBody Usuario usuario) {
         return usuarioService.atualizarUsuario(usuario)
                 .map(resposta -> ResponseEntity.status(HttpStatus.OK).body(resposta))
                 .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
-    
+
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
     public void deleteUsuario(@PathVariable Long id) {

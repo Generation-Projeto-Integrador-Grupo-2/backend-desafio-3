@@ -1,4 +1,4 @@
-package com.rebueats.rebueats.controller;
+package com.rebueats.rebueats.categoria.controller;
 
 import java.util.List;
 
@@ -6,10 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import com.rebueats.rebueats.model.Categoria;
-import com.rebueats.rebueats.service.CategoriaService;
-
+import com.rebueats.rebueats.categoria.model.Categoria;
+import com.rebueats.rebueats.categoria.service.CategoriaService;
 import jakarta.validation.Valid;
 
 @RestController

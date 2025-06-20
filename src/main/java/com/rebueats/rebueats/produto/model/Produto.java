@@ -1,9 +1,10 @@
-package com.rebueats.rebueats.model;
+package com.rebueats.rebueats.produto.model;
 
 import java.math.BigDecimal;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
+import com.rebueats.rebueats.categoria.model.Categoria;
+import com.rebueats.rebueats.usuario.model.Usuario;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

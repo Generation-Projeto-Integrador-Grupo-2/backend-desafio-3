@@ -9,8 +9,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-import com.rebueats.rebueats.model.Usuario;
-import com.rebueats.rebueats.repository.UsuarioRepository;
+import com.rebueats.rebueats.usuario.model.Usuario;
+import com.rebueats.rebueats.usuario.repository.UsuarioRepository;
 
 
 

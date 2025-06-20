@@ -1,4 +1,4 @@
-package com.rebueats.rebueats.model;
+package com.rebueats.rebueats.usuario.model;
 
 public class UsuarioLogin {
 
