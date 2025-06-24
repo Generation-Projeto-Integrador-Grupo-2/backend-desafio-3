@@ -1,3 +1,5 @@
+CREATE EXTENSION IF NOT EXISTS vector;
+
 CREATE TABLE tb_usuarios (
     id BIGSERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
@@ -15,16 +17,68 @@ CREATE TABLE tb_categorias (
     imagem_url VARCHAR(255)
 );
 
+CREATE TABLE tb_empresas (
+    id BIGSERIAL PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    senha VARCHAR(255) NOT NULL,
+    cnpj VARCHAR(30) NOT NULL UNIQUE,
+    telefone VARCHAR(30) NOT NULL,
+    endereco VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE tb_motoboys (
+    id BIGSERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    modelo_moto VARCHAR(100) NOT NULL,
+    placa VARCHAR(20) NOT NULL,
+    cnh VARCHAR(30) NOT NULL,
+    endereco VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE tb_entregas (
+    id BIGSERIAL PRIMARY KEY,
+    data TIMESTAMP,
+    usuario_id BIGINT REFERENCES tb_usuarios(id),
+    motoboy_id BIGINT REFERENCES tb_motoboys(id),
+    empresa_id BIGINT REFERENCES tb_empresas(id)
+);
+
 CREATE TABLE tb_produtos (
     id BIGSERIAL PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
     descricao VARCHAR(1000) NOT NULL,
     preco DECIMAL(10,2) NOT NULL,
     foto VARCHAR(255) NOT NULL,
-    categoria_id BIGINT NOT NULL,
-    usuario_id BIGINT NOT NULL,
-    CONSTRAINT fk_categoria FOREIGN KEY (categoria_id) REFERENCES tb_categorias(id),
-    CONSTRAINT fk_usuario FOREIGN KEY (usuario_id) REFERENCES tb_usuarios(id)
+    embedding vector(384),
+    categoria_id BIGINT REFERENCES tb_categorias(id),
+    usuario_id BIGINT REFERENCES tb_usuarios(id),
+    empresa_id BIGINT REFERENCES tb_empresas(id),
+    entrega_id BIGINT REFERENCES tb_entregas(id)
+);
+
+CREATE TABLE tb_pedidos (
+    id BIGSERIAL PRIMARY KEY,
+    data_hora TIMESTAMP NOT NULL,
+    valor_total DECIMAL(10,2) NOT NULL,
+    status VARCHAR(50) DEFAULT 'AGUARDANDO_CONFIRMACAO',
+    usuario_id BIGINT REFERENCES tb_usuarios(id)
+);
+
+-- Tabela de junção: Pedido <-> Produto (N:N)
+CREATE TABLE tb_pedido_produto (
+    pedido_id BIGINT REFERENCES tb_pedidos(id) ON DELETE CASCADE,
+    produto_id BIGINT REFERENCES tb_produtos(id) ON DELETE CASCADE,
+    PRIMARY KEY (pedido_id, produto_id)
+);
+
+CREATE TABLE tb_avaliacoes (
+    id BIGSERIAL PRIMARY KEY,
+    nota INT CHECK (nota >= 1 AND nota <= 5),
+    comentario VARCHAR(500),
+    data_hora TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    empresa_id BIGINT REFERENCES tb_empresas(id),
+    usuario_id BIGINT REFERENCES tb_usuarios(id)
 );
 
 INSERT INTO tb_usuarios (name, email, senha, endereco, numero) VALUES

@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import com.rebueats.rebueats.categoria.repository.CategoriaRepository;
+import com.rebueats.rebueats.produto.dto.ComboResponseDTO;
 import com.rebueats.rebueats.produto.model.Produto;
 import com.rebueats.rebueats.produto.service.ProdutoService;
 import jakarta.validation.Valid;
@@ -68,9 +70,26 @@ public class ProdutoController {
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable Long id) {
-
-
 		produtoService.deletarProduto(id);
 	}
 
+	// GET /produtos/sugeridos?desejo=...
+	@GetMapping("/sugeridos")
+	public ResponseEntity<List<Produto>> sugerirProdutos(@RequestParam String desejo) {
+		return ResponseEntity.ok(produtoService.sugerirProdutos(desejo));
+	}
+
+	// GET /produtos/combo?desejo=...&tamanho=3
+	@GetMapping("/combo")
+	public ResponseEntity<List<Produto>> montarCombo(@RequestParam String desejo,
+			@RequestParam(defaultValue = "3") int tamanho) {
+		return ResponseEntity.ok(produtoService.montarCombo(desejo, tamanho));
+	}
+
+	// POST /produtos/combo/descricao
+	@PostMapping("/combo/descricao")
+	public ResponseEntity<ComboResponseDTO> gerarComboComDescricao(@RequestParam String desejo,
+			@RequestBody List<Produto> produtos) {
+		return ResponseEntity.ok(produtoService.gerarComboComDescricao(desejo, produtos));
+	}
 }

@@ -2,6 +2,7 @@ package com.rebueats.rebueats.usuario.model;
 
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.rebueats.rebueats.avaliacao.model.Avaliacao;
 import com.rebueats.rebueats.produto.model.Produto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.CascadeType;
@@ -28,7 +29,7 @@ public class Usuario {
     @Size(min = 2, max = 100, message = "O tamanho mínimo é de 2 e máximo de 100 caracteres.")
     private String name;
 
-    @Schema(example = "email@eamil.com.br")
+    @Schema(example = "email@email.com.br")
     @NotBlank(message = "O email é obrigatório!")
     @Email
     private String email;
@@ -47,6 +48,18 @@ public class Usuario {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "usuario", cascade = CascadeType.REMOVE)
     @JsonIgnoreProperties("usuario")
     private List<Produto> produto;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usuario", cascade = CascadeType.REMOVE)
+    @JsonIgnoreProperties("usuario")
+    private List<Avaliacao> avaliacoes;
+
+    public List<Avaliacao> getAvaliacoes() {
+        return avaliacoes;
+    }
+
+    public void setAvaliacoes(List<Avaliacao> avaliacoes) {
+        this.avaliacoes = avaliacoes;
+    }
 
     public Long getId() {
         return id;

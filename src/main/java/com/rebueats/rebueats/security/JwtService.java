@@ -8,6 +8,7 @@ import java.util.function.Function;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+import com.rebueats.rebueats.empresa.model.Empresa;
 import com.rebueats.rebueats.usuario.model.Usuario;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -63,6 +64,11 @@ public class JwtService {
     public String generateToken(Usuario usuario) {
         Map<String, Object> claims = new HashMap<>();
         return "Bearer " + createToken(claims, usuario.getEmail());
+    }
+
+    public String generateTokenEmpresa(Empresa empresa) {
+        Map<String, Object> claims = new HashMap<>();
+        return "Bearer " + createToken(claims, empresa.getEmail());
     }
 
 }
